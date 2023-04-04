@@ -225,7 +225,9 @@ function selisih($tgl_input_data, $tgl_jatuh_tempo)
 function pembayaran($data_tabel_pembayaran) {
     global $conn;
 
-    $id_pelanggan = ($data_tabel_pembayaran["id_tabel_pembayaran"]);
+   
+
+    $id_pelanggan = $data_tabel_pembayaran["id_piutang"];
     $tanggal_bayar = htmlspecialchars($data_tabel_pembayaran["tanggal_bayar"]);
     $jumlah_bayar = htmlspecialchars($data_tabel_pembayaran["jumlah_bayar"]);
     $metode_bayar = htmlspecialchars($data_tabel_pembayaran["metode_bayar"]);
@@ -238,78 +240,11 @@ function pembayaran($data_tabel_pembayaran) {
 
      mysqli_query($conn, $query);
     
-     
+ 
 
     return mysqli_affected_rows($conn);
 
 }
-	
-
-// function saldo($data){
-//     global $conn;
-
-//     $id = $data["id"];
-//     $nama = htmlspecialchars($data["nama"]);
-//     $nomor_invoice = htmlspecialchars($data["nomor_invoice"]);
-//     $tanggal_input = htmlspecialchars($data["tanggal_input"]);
-//     $tanggal_tempo = htmlspecialchars($data["tanggal_tempo"]);
-//     $umur_piutang = htmlspecialchars($data["umur_piutang"]);
-//     $nominal = htmlspecialchars($data["nominal"]);
-//     $sisa_piutang = htmlspecialchars($data["sisa_piutang"]);
-//     $jumlah_pembayaran = htmlspecialchars($data["jumlah_pembayaran"]);
-//     $tanggal_bayar = htmlspecialchars($data["tanggal_bayar"]);
-//     $metode_pembayaran = htmlspecialchars($data["metode_pembayaran"]);
-//     $ket_pembayaran = htmlspecialchars($data["ket_pembayaran"]);
-
-
-//     //query insert data
-//     $query = "UPDATE piutang SET
-//                 nama = '$nama',
-//                 nomor_invoice = '$nomor_invoice',
-//                 tanggal_input = '$tanggal_input',
-//                 tanggal_tempo = '$tanggal_tempo',
-//                 umur_piutang = '$umur_piutang',
-//                 nominal = '$nominal',
-//                 sisa_piutang = '$sisa_piutang',
-//                 jumlah_pembayaran = '$jumlah_pembayaran',
-//                 tanggal_bayar = '$tanggal_bayar',
-//                 metode_pembayaran = '$metode_pembayaran',
-//                 ket_pembayaran = '$ket_pembayaran'
-//             WHERE id = $id
-//         ";
-
-//     mysqli_query($conn, $query);
-
-//     return mysqli_affected_rows($conn);
-
-// }
-    
-
-// function rincian($data){
-//     global $conn;
-    
-//     $query = "SELECT * FROM piutang
-//                  nama = '$nama',
-//                 nomor_invoice = '$nomor_invoice',
-//                 tanggal_input = '$tanggal_input',
-//                 tanggal_tempo = '$tanggal_tempo',
-//                 umur_piutang = '$umur_piutang',
-//                 nominal = '$nominal',
-//                 sisa_piutang = '$sisa_piutang',
-//                 jumlah_pembayaran = '$jumlah_pembayaran',
-//                 tanggal_bayar = '$tanggal_bayar',
-//                 metode_pembayaran = '$metode_pembayaran',
-//                 ket_pembayaran = '$ket_pembayaran'
-    
-//      WHERE id = $id
-//      ";
-   
-// }
-
-
-
-
-
 
 
 ?>

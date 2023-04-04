@@ -17,35 +17,48 @@ $data_query_cust = query(" SELECT * FROM tabel_piutang WHERE id = $id_piutang ")
 
  $data_tabel_pembayaran = query("
 SELECT
+    tabel_pembayaran.id as id_bayar,
+    tabel_pembayaran.id_pelanggan as id_tabel_pembayaran,
+    tabel_pembayaran.tanggal_bayar as tanggal_bayar,
+    tabel_pembayaran.jumlah_bayar as jumlah_bayar,
+    tabel_pembayaran.metode_bayar as metode_bayar,
+    tabel_pembayaran.ket_bayar as ket_bayar
+    
  FROM tabel_pembayaran
  LEFT JOIN tabel_piutang ON tabel_piutang.id = tabel_pembayaran.id_pelanggan
+ WHERE tabel_pembayaran.id_pelanggan = ".$id_piutang."
  ");
 
+ 
   //cek tombol submit sudah ditekan atau belum
 if( isset($_POST["kirim"]) ) {
     
     //cek data berhasil ditambahkan atau tidak
    if( pembayaran($_POST) > 0 ) {
-       echo "
-            <script>
-                alert('Data berhasil dikirim!');
-                document.location.href = 'form_pembayaran.php?id=".$data_query_cust['id_customer']."';
-            </script>
-       ";
-   } else {
-       echo "
-            <script>
-                alert('Data gagal dikirim!');
-                document.location.href = 'form_pembayaran.php?="." ';
+      echo "
+             <script>
+                 alert('Data berhasil dikirim!');
+                 document.location.href = 'form_pembayaran.php?id=".$id_piutang."';
              </script>
-    ";
-   }
+        ";
+    } else {
+        echo "
+             <script>
+                 alert('Data gagal dikirim!');
+                 document.location.href = 'form_pembayaran.php?id=".$id_piutang."';
+              </script>
+     ";
+    }
 
 }
 
 
 if( isset($_POST["cancel"]) ) {
-    header("location: form_pembayaran.php");
+    echo "
+    <script>
+        document.location.href = 'form_pembayaran.php?id=".$id_piutang."';
+     </script>
+";
     exit;
 }
  
@@ -125,5 +138,28 @@ if( isset($_POST["cancel"]) ) {
         <th>Metode Pembayaran</th>
         <th>Keterangan Pembayaran</th>
      </tr>
+
+
+     <?php $i = 1; ?>
+<?php foreach( $data_tabel_pembayaran as $data_bayar) : ?>
+    <tr>
+        <td><?= $i; ?></td>
+        
+        <td><?= $data_bayar["tanggal_bayar"]; ?> </td>
+        <td><?= $data_bayar["jumlah_bayar"]; ?> </td>
+        <td><?= $data_bayar["metode_bayar"]; ?> </td>
+        <td><?= $data_bayar["ket_bayar"]; ?></td>
+        
+        
+        
+
+        
+    </tr>
+    <?php $i++; ?>
+<?php endforeach; ?>
+</table>
+<?php ;?>
+
+
 </body>
 </html>
