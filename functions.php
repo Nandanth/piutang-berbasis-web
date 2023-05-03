@@ -39,6 +39,31 @@ function tambah_data_customer($data_customer) {
     
 }
 
+function cari_customer($keyword_customer) {
+    $query_cari_customer = "SELECT * FROM tabel_customer
+            WHERE 
+            nama_customer LIKE '%$keyword_customer%' OR
+            alamat LIKE '%$keyword_customer%' OR
+            no_telp LIKE '%$keyword_customer%'
+            ";
+            
+        return query($query_cari_customer);
+}
+
+  function cari_piutang($keyword_piutang) {
+
+        $query_cari_piutang = "SELECT * FROM tabel_piutang
+                WHERE 
+                nomor_invoice LIKE '%$keyword_piutang%' OR
+                tanggal_piutang LIKE '%$keyword_piutang%'OR
+                tanggal_tempo LIKE '%$keyword_piutang%' OR
+                umur_piutang LIKE '%$keyword_piutang%' OR
+                nominal LIKE '%$keyword_piutang%' OR
+                sisa_piutang LIKE '%$keyword_piutang%' 
+                ";
+
+           return query($query_cari_piutang);
+    }
 
 function tambah_data_piutang($data_piutang) {
     global $conn;
@@ -139,20 +164,6 @@ function edit_data_customer($data) {
     
     }
 
-    // function cari($keyword) {
-    //     $query = "SELECT * FROM piutang
-    //             WHERE 
-    //             nama LIKE '%$keyword%' OR
-    //             nomor_invoice LIKE '%$keyword%' OR
-    //             tanggal_input LIKE '%$keyword%'OR
-    //             tanggal_tempo LIKE '%$keyword%' OR
-    //             umur_piutang LIKE '%$keyword%' OR
-    //             nominal LIKE '%$keyword%' OR
-    //             sisa_piutang LIKE '%$keyword%' 
-    //             ";
-    //         return query($query);
-    // }
-
 
     function registrasi($data) {
         global $conn;
@@ -246,5 +257,13 @@ function pembayaran($data_tabel_pembayaran) {
 
 }
 
+function hapus_data_pembayaran($id_bayar){
+
+    global $conn;
+    mysqli_query($conn, "DELETE FROM tabel_pembayaran WHERE id = $id_bayar");
+    
+    
+    return mysqli_affected_rows($conn);
+}
 
 ?>
