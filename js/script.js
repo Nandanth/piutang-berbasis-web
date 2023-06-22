@@ -24,3 +24,5 @@ keywordCustomer.addEventListener('keyup', function() {
     xhr.send();
 
 });
+
+

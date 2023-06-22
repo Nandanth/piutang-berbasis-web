@@ -48,7 +48,7 @@ if ( isset($_POST["cari_customer"]) ) {
 
 <br>
 
-<h1>Daftar Piutang</h1>
+<h1>Daftar Customer</h1>
 <a class="btn btn-success" href="tambah_data_customer.php" role="button">Tambah Data Customer</a>
 <br><br>
 

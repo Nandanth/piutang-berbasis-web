@@ -97,7 +97,7 @@ function tambah_data_piutang($data_piutang) {
 
 function hapus_data_customer($id){
     global $conn;
-    mysqli_query($conn, "DELETE FROM tabel_customer WHERE id = $id");
+   mysqli_query($conn, "DELETE FROM tabel_customer WHERE id = $id");
 
     return mysqli_affected_rows($conn);
 }
@@ -106,7 +106,8 @@ function hapus_data_piutang($id_piutang) {
     global $conn;
     mysqli_query($conn, "DELETE FROM tabel_piutang WHERE id = $id_piutang");
     
-    return mysqli_affected_rows($conn);
+ 
+     return mysqli_affected_rows($conn);
 }
 
 function edit_data_customer($data) {
@@ -243,11 +244,15 @@ function pembayaran($data_tabel_pembayaran) {
     $jumlah_bayar = htmlspecialchars($data_tabel_pembayaran["jumlah_bayar"]);
     $metode_bayar = htmlspecialchars($data_tabel_pembayaran["metode_bayar"]);
     $ket_bayar = htmlspecialchars($data_tabel_pembayaran["ket_bayar"]);
+   // $sisa_piutang = $data_tabel_pembayaran["sisa_piutang"];
 
     $query = "INSERT INTO tabel_pembayaran 
     (id, id_pelanggan, tanggal_bayar, jumlah_bayar, metode_bayar, ket_bayar)
-    VALUES ('', '$id_pelanggan', '$tanggal_bayar', '$jumlah_bayar', '$metode_bayar', '$ket_bayar')
+    VALUES ('', '$id_pelanggan', '$tanggal_bayar', '$jumlah_bayar', '$metode_bayar', '$ket_bayar') UPDATE tabel_piutang SET
+        sisa_piutang = '$sisa_piutang'
     ";
+
+
 
      mysqli_query($conn, $query);
     
@@ -261,9 +266,9 @@ function hapus_data_pembayaran($id_bayar){
 
     global $conn;
     mysqli_query($conn, "DELETE FROM tabel_pembayaran WHERE id = $id_bayar");
-    
-    
+   
     return mysqli_affected_rows($conn);
 }
+
 
 ?>

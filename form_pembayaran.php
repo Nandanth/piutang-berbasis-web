@@ -12,9 +12,6 @@ require 'functions.php';
 //ambil data di url
 $id_piutang = $_GET["id"];
 
-// //query data berdasarkan id
- //$data_query_cust = query(" SELECT * FROM tabel_piutang WHERE id = $id_piutang ")[0];
-
 $data_tabel_pembayaran = query("
 SELECT
     tabel_pembayaran.id as id_bayar,
@@ -39,12 +36,8 @@ SELECT
  LEFT JOIN tabel_piutang ON tabel_piutang.id = tabel_pembayaran.id_pelanggan
  LEFT JOIN tabel_customer ON tabel_customer.id = tabel_piutang.id_customer
  WHERE tabel_pembayaran.id_pelanggan = ".$id_piutang."
- ORDER BY tabel_pembayaran.id DESC
- LIMIT 1
+ ORDER BY tabel_pembayaran.id ASC
  ");
-
-// print_r($data_tabel_pembayaran);
-// die();
 
  
   //cek tombol submit sudah ditekan atau belum
@@ -78,7 +71,7 @@ if( isset($_POST["cancel"]) ) {
 ";
     exit;
 }
- 
+
 
 ?>
 
@@ -111,7 +104,7 @@ if( isset($_POST["cancel"]) ) {
     <a class="btn btn-success" href="daftar_piutang.php?id=<?= isset($data_tabel_pembayaran[0]['id_customer'])?$data_tabel_pembayaran[0]['id_customer']:''; ?>" class="back">Kembali ke Halaman Daftar Piutang </a>  
 
     <a class="btn btn-secondary" href="print_pdf.php?id=<?= $id_piutang?>" target="_blank"><i class="bi bi-printer-fill"></i> PDF <i class="bi bi-file-earmark-pdf-fill"></i> </a>
-    <a class="btn btn-secondary" href="print_pdf.php?id=<?= $id_piutang?>" target="_blank"><i class="bi bi-printer-fill"></i> EXCELL <i class="bi bi-file-earmark-excel-fill"></i> </a>
+    <a class="btn btn-secondary" href="excel.php?id=<?= $id_piutang?>" target="_blank"><i class="bi bi-printer-fill"></i> EXCELL <i class="bi bi-file-earmark-excel-fill"></i> </a>
 
     <h3>Nama : <?= isset($data_tabel_pembayaran[0]["nama_customer"])?$data_tabel_pembayaran[0]["nama_customer"]:''; ?></h3>
     <h3>Nomor Invoice : <?= isset($data_tabel_pembayaran[0]["nomor_invoice"])?$data_tabel_pembayaran[0]["nomor_invoice"]:''; ?></h3>
@@ -178,7 +171,8 @@ if( isset($_POST["cancel"]) ) {
 
 
      <?php $i = 1; ?>
-<?php foreach( $data_tabel_pembayaran as $data_bayar) : ?>
+<?php 
+    foreach( $data_tabel_pembayaran as $data_bayar){?>
     <tr>
         <td><?= $i; ?></td>
         <td class="aksi"><a href="hapus_data_pembayaran.php?id=<?= $data_bayar["id_bayar"]; ?>" onclick="return confirm('Yakin untuk menghapus?');">delete</a></td>
@@ -188,8 +182,7 @@ if( isset($_POST["cancel"]) ) {
         <td><?= $data_bayar["ket_bayar"]; ?></td>
         
     </tr>
-    <?php $i++; ?>
-<?php endforeach; ?>
+<?php $i++; }?>
 </table>
 <?php ;?>
 
@@ -198,6 +191,24 @@ if( isset($_POST["cancel"]) ) {
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+
+<script>
+    function hitung(){
+    const sisa_piutang = document.getElementById('sisa_piutang').value;
+    const jumlah_bayar = document.getElementById('jumlah_bayar').value;
+
+    if(jumlah_bayar >= 0 && jumlah_bayar <= sisa_piutang){
+        var hitung_sisa_piutang = sisa_piutang-jumlah_bayar;
+        document.getElementById('sisa_piutang').value = hitung_sisa_piutang;
+    }else{
+        alert("Nominal jumlah pembayaran tidak sesuai!");
+    }
+}
+
+
+</script>
 
 </body>
 </html>

@@ -35,8 +35,8 @@ SELECT
  LEFT JOIN tabel_piutang ON tabel_piutang.id = tabel_pembayaran.id_pelanggan
  LEFT JOIN tabel_customer ON tabel_customer.id = tabel_piutang.id_customer
  WHERE tabel_pembayaran.id_pelanggan = ".$id_piutang."
- ORDER BY tabel_pembayaran.id DESC
- LIMIT 1
+ ORDER BY tabel_pembayaran.id ASC
+ 
  ");
 
 //  print_r($data_tabel_pembayaran);

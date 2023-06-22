@@ -15,6 +15,7 @@ $id_piutang = $_GET["id"];
 $query_piutang = query(" SELECT * FROM tabel_piutang WHERE id = $id_piutang ")[0];
 
 
+
 if( hapus_data_piutang($id_piutang) > 0 ) {
     echo "
             <script>
